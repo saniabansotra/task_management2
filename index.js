@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-const { connectDatabase } = require("./conncetion/connect");
+const { connectDatabase } = require("./connection/connect");
 const TASK_MODEL = require("./models/task");
 app.use(express.json());
 app.post("/api/task", async (req, res) => {
