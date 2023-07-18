@@ -6,13 +6,14 @@ const TASK_MODEL = require("./models/task");
 app.use(express.json());
 app.post("/api/task", async (req, res) => {
   try {
-    const task = {
-      task_name: req.body.taskname,
-      task_description: req.body.taskdescription,
-      task_date: req.body.taskdate,
+    const newtask = {
+      task_name: req.body.newtasktitle,
+      task_description: req.body.newtaskdescription,
+      task_date: req.body.newtaskduedate,
+      task_status: req.body.taskstatus,
     };
-    const task1 = new TASK_MODEL(task);
-    await task1.save();
+    const task = new TASK_MODEL(newtask);
+    await task.save();
     return res.json({ success: true, message: "Data saved successfully" });
   } catch (error) {
     return res.json({ success: false, error: error.message });
