@@ -4,13 +4,13 @@ const app = express();
 const { connectDatabase } = require("./connection/connect");
 const TASK_MODEL = require("./models/task");
 app.use(express.json());
-app.post("/api/task", async (req, res) => {
+app.post("/api/createTask", async (req, res) => {
   try {
     const newtask = {
       task_name: req.body.newtasktitle,
       task_description: req.body.newtaskdescription,
       task_date: req.body.newtaskduedate,
-      task_status: req.body.taskstatus,
+      taskstatus: req.body.taskstatus,
     };
     const task = new TASK_MODEL(newtask);
     await task.save();
@@ -21,15 +21,15 @@ app.post("/api/task", async (req, res) => {
 });
 app.get("/api/task", async (req, res) => {
   try {
-    const sortedtask = await TASK_MODEL.find().sort({ createdAt: -1 });
-    return res.json({ success: true });
+    const sortedtask = await TASK_MODEL.find();
+    return res.status(200).json({ success: true, data: data });
   } catch (error) {
     return res.json({ success: false, error: error.message });
   }
 });
 
 connectDatabase();
-const PORT = 8000;
+const PORT = 8080;
 app.listen(PORT, () => {
   console.log("Server is connected on port ", PORT);
 });
